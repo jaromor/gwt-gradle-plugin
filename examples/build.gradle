@@ -9,13 +9,17 @@ subprojects {
 	
 	buildscript {
 		repositories {
+			// this is where our/modified version of the plugin resides
+			mavenLocal()
 			maven {
 				url "https://oss.sonatype.org/content/repositories/snapshots/"
 			}
 			mavenCentral()
 		}
 		dependencies {
-			classpath 'org.wisepersist:gwt-gradle-plugin:1.0.1-SNAPSHOT'
+			// our version of the plugin
+			classpath 'org.wisepersist:gwt-gradle-plugin:1.0.14-SNAPSHOT'
+			classpath 'org.projectlombok:lombok:1.18.10'
 		}
 	}
 

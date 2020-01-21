@@ -4,8 +4,23 @@ apply plugin: 'eclipse'
 
 repositories { mavenCentral() }
 
+configurations {
+	lombokConfiguration
+}
+
 dependencies {
 	compile project(':example-library')
+
+	// enable Lombok for this module
+	compileOnly 'org.projectlombok:lombok:1.18.10'
+
+	// make it possible to find out the Lombok JAR location
+	lombokConfiguration 'org.projectlombok:lombok:1.18.10'
+}
+
+ext {
+	// store the location of the Lombok JAR
+	lombokPath = configurations.lombokConfiguration.asPath
 }
 
 gwt {
@@ -16,4 +31,14 @@ gwt {
 	modules 'org.wisepersist.gradle.plugins.gwt.example.Example'
 	
 	src += files(project(':example-library').sourceSets.main.allJava.srcDirs) + files(project(':example-library').sourceSets.main.output.resourcesDir)
+}
+
+compileGwt {
+	// tell javac to use Lombok
+	jvmArgs "-javaagent:${lombokPath}=ECJ"
+}
+
+draftCompileGwt {
+	// tell javac to use Lombok
+	jvmArgs "-javaagent:${lombokPath}=ECJ"
 }

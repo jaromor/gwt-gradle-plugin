@@ -17,8 +17,12 @@ package org.wisepersist.gradle.plugins.gwt.example.library.client;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.user.client.ui.Widget;
+import lombok.Data;
 
+@Data
 public class HelloWorldWidget extends Widget {
+
+	private String someValue;
 
 	public HelloWorldWidget() {
 		setElement(Document.get().createDivElement());
